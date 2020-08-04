@@ -17,6 +17,7 @@ class CreateRoleUsersTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned()->nullable(false)->comment('User id');
             $table->tinyInteger('role_id')->unsigned()->nullable(false)->comment('Role id');
+            $table->boolean('active')->default('0')->nullable(false)->comment('State of role in session');
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
