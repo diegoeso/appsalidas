@@ -45,8 +45,34 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'role_users')->withPivot('active');
     }
+    public function hasRole($role)
+    {
+        if ($this->roles()->where('name', $role)->first()) {
+            return true;
+        }
+        return false;
+    }
+    public function hasRoleAvailable($role)
+    {
+        if ($this->hasRole($role)) {
+            if ($this->roles()->where('name', $role)->first()->pivot->active == 0) {
+                return true;
+            }
+            return false;
+        }
+
+        return false;
+    }
     public function activities()
     {
         return $this->belongsToMany(Activity::class, 'participants')->withPivot('active');
+    }
+    public function doc()
+    {
+        return $this->belongsTo(Document_type::class, 'document_type');
+    }
+    public function program()
+    {
+        return $this->belongsTo(Program::class, 'id_program');
     }
 }
