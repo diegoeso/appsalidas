@@ -14,7 +14,7 @@ class AlterTableFaculties extends Migration
     public function up()
     {
         Schema::table('faculties', function (Blueprint $table) {
-            //
+            $table->unique(['name'], 'uc_faculties');
         });
     }
 
@@ -26,7 +26,7 @@ class AlterTableFaculties extends Migration
     public function down()
     {
         Schema::table('faculties', function (Blueprint $table) {
-            //
+            $table->dropUnique('uc_faculties');
         });
     }
 }

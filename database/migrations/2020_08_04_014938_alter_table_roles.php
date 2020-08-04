@@ -14,7 +14,7 @@ class AlterTableRoles extends Migration
     public function up()
     {
         Schema::table('roles', function (Blueprint $table) {
-            //
+            $table->unique(['name'], 'uc_roles');
         });
     }
 
@@ -26,7 +26,7 @@ class AlterTableRoles extends Migration
     public function down()
     {
         Schema::table('roles', function (Blueprint $table) {
-            //
+            $table->dropUnique('uc_roles');
         });
     }
 }

@@ -14,8 +14,12 @@ class CreateProgramsTable extends Migration
     public function up()
     {
         Schema::create('programs', function (Blueprint $table) {
-            $table->id();
+            $table->tinyIncrements('id')->comment('Program ID');
+            $table->tinyInteger('id_faculty')->unsigned()->nullable(false)->comment('Faculty ID');
+            $table->string('name', '50')->nullable(false)->comment('Faculty name');
+            $table->string('code', '3')->nullable(false)->comment('Program code');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

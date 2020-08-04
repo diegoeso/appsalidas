@@ -14,8 +14,13 @@ class CreateActivitiesTable extends Migration
     public function up()
     {
         Schema::create('activities', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('Activity ID');
+            $table->string('title', '80')->nullable(false)->comment('Activity Title');
+            $table->text('description')->nullable(false)->comment('Activity description');
+            $table->date('start_date')->nullable(false)->comment('Activity start date');
+            $table->date('end_date')->nullable(false)->comment('Activity end date');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

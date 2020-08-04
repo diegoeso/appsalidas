@@ -14,7 +14,11 @@ class AlterTablesUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            Schema::table('users', function (Blueprint $table) {
+                $table->foreign('document_type')->references('id')->on('document_types')->onDelete('restrict')->cascadeOnUpdate();
+                $table->foreign('id_program')->references('id')->on('programs')->onDelete('restrict')->cascadeOnUpdate();
+                $table->unique(['code', 'document', 'email', 'emailu', 'phone'], 'uc_users');
+            });
         });
     }
 
@@ -26,7 +30,9 @@ class AlterTablesUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropForeign('document_type');
+            $table->dropForeign('id_program');
+            $table->dropUnique('uc_users');
         });
     }
 }

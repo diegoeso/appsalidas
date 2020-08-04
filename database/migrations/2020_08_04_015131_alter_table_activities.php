@@ -14,7 +14,7 @@ class AlterTableActivities extends Migration
     public function up()
     {
         Schema::table('activities', function (Blueprint $table) {
-            //
+            $table->unique(['title'], 'uc_activities');
         });
     }
 
@@ -26,7 +26,7 @@ class AlterTableActivities extends Migration
     public function down()
     {
         Schema::table('activities', function (Blueprint $table) {
-            //
+            $table->dropUnique('uc_activities');
         });
     }
 }

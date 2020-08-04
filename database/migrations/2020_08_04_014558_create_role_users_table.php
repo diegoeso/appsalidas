@@ -15,7 +15,10 @@ class CreateRoleUsersTable extends Migration
     {
         Schema::create('role_users', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->unsigned()->nullable(false)->comment('User id');
+            $table->tinyInteger('role_id')->unsigned()->nullable(false)->comment('Role id');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

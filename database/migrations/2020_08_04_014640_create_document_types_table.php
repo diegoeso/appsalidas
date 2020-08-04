@@ -14,8 +14,11 @@ class CreateDocumentTypesTable extends Migration
     public function up()
     {
         Schema::create('document_types', function (Blueprint $table) {
-            $table->id();
+            $table->tinyIncrements('id')->comment('Document_types id');
+            $table->string('name', '8')->nullable(false)->comment('Document_types alias');
+            $table->string('description', '30')->nullable(false)->comment('Document_types description');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

@@ -14,7 +14,7 @@ class AlterTableDocumentTypes extends Migration
     public function up()
     {
         Schema::table('document_types', function (Blueprint $table) {
-            //
+            $table->unique(['name', 'description'], 'uc_activities');
         });
     }
 
@@ -26,7 +26,7 @@ class AlterTableDocumentTypes extends Migration
     public function down()
     {
         Schema::table('document_types', function (Blueprint $table) {
-            //
+            $table->dropUnique('uc_activities');
         });
     }
 }

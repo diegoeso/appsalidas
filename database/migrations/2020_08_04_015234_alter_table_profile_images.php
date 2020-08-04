@@ -14,7 +14,9 @@ class AlterTableProfileImages extends Migration
     public function up()
     {
         Schema::table('profile_images', function (Blueprint $table) {
-            //
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->cascadeOnUpdate();
+            $table->unique(['path', 'name'], 'uc_profile_images');
+            $table->unique(['user_id'], 'uc_profile_user');
         });
     }
 
@@ -26,7 +28,9 @@ class AlterTableProfileImages extends Migration
     public function down()
     {
         Schema::table('profile_images', function (Blueprint $table) {
-            //
+            $table->dropUnique('uc_profile_images');
+            $table->dropUnique('uc_profile_user');
+            $table->dropForeign('user_id');
         });
     }
 }

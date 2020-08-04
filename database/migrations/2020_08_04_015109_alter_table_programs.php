@@ -14,7 +14,8 @@ class AlterTablePrograms extends Migration
     public function up()
     {
         Schema::table('programs', function (Blueprint $table) {
-            //
+            $table->foreign('id_faculty')->references('id')->on('faculties')->onDelete('restrict')->cascadeOnUpdate();
+            $table->unique(['code', 'name'], 'uc_programs');
         });
     }
 
@@ -26,7 +27,8 @@ class AlterTablePrograms extends Migration
     public function down()
     {
         Schema::table('programs', function (Blueprint $table) {
-            //
+            $table->dropForeign('id_faculty');
+            $table->dropUnique('uc_programs');
         });
     }
 }

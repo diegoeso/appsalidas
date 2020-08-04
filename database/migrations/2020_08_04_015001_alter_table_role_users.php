@@ -14,7 +14,9 @@ class AlterTableRoleUsers extends Migration
     public function up()
     {
         Schema::table('role_users', function (Blueprint $table) {
-            //
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->cascadeOnUpdate();
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('restrict')->cascadeOnUpdate();
+            $table->unique(['user_id', 'role_id'], 'uc_role_users');
         });
     }
 
@@ -26,7 +28,9 @@ class AlterTableRoleUsers extends Migration
     public function down()
     {
         Schema::table('role_users', function (Blueprint $table) {
-            //
+            $table->dropForeign('user_id');
+            $table->dropForeign('role_id');
+            $table->dropUnique('uc_role_users');
         });
     }
 }

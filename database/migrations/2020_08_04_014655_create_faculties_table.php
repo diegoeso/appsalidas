@@ -14,8 +14,10 @@ class CreateFacultiesTable extends Migration
     public function up()
     {
         Schema::create('faculties', function (Blueprint $table) {
-            $table->id();
+            $table->tinyIncrements('id')->comment('Faculty ID');
+            $table->string('name', '50')->comment('Faculty name');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 
