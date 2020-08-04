@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +37,29 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    public function showLogin($user = 'estudiante')
+    {
+        if (Auth::check()) {
+            return redirect()->route($user . '.home');
+        } else {
+            switch ($user) {
+                case 'estudiante':
+                    return view('auth.login.estudiante');
+                    break;
+                case 'docente':
+                    return view('auth.login.docente');
+                    break;
+                case 'director':
+                    return view('auth.login.director');
+                    break;
+                case 'secret':
+                    return view('auth.login.admin');
+                    break;
+                default:
+                    return back();
+                    break;
+            }
+        }
     }
 }
