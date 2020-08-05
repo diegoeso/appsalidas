@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return redirect()->route('showLogin');
@@ -34,6 +33,9 @@ Route::get('administrador/lista_docentes', 'AdministradorController@lista_docent
 Route::get('administrador/lista_facultades', 'AdministradorController@lista_facultades')->name('administrador.lista_facultades');
 Route::get('administrador/lista_programas', 'AdministradorController@lista_programas')->name('administrador.lista_programas');
 Route::get('administrador/lista_actividades', 'AdministradorController@lista_actividades')->name('administrador.lista_actividades');
+// Ing. Diego Sanchez
+Route::get('administrador/datos-usuario/{id}', 'AdministradorController@datos_usuario');
+Route::get('administrador/eliminar/{id}', 'AdministradorController@destroy');
 
 Route::get('estudiante/home', 'EstudianteController@index')->name('estudiante.home');
 Route::post('estudiante/editarActividad', 'EstudianteController@editActivity')->name('estudiante.editActivity');
@@ -42,6 +44,5 @@ Route::post('estudiante/eliminarActividad', 'EstudianteController@deleteActivity
 Route::get('docente/home', 'DocenteController@index')->name('docente.home');
 
 Route::get('director/home', 'DirectorController@index')->name('director.home');
-
 
 // Auth::routes();

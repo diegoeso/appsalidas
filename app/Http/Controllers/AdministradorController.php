@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 // Models
 use App\Activity;
-use App\Document_type;
 use App\Faculty;
 use App\Program;
 use App\Role;
 use App\User;
-
 use Illuminate\Http\Request;
 
 class AdministradorController extends Controller
@@ -27,8 +25,9 @@ class AdministradorController extends Controller
      */
     public function index(Request $request)
     {
-        $alert = 'Ok';
+        $alert    = 'Ok';
         $usuarios = User::orderBy('id', 'ASC')->get();
+        // dd($usuarios);
         return view($this->ruta . '.home', ['usuarios' => $usuarios, 'alert' => $alert]);
     }
     public function perfil(Request $request)
@@ -38,17 +37,17 @@ class AdministradorController extends Controller
     public function registrar_usuario(Request $request)
     {
         $validator = $request->validate([
-            'name' => 'required|string|max:50',
-            'lastname' => 'required|string|max:50',
-            'code' => 'required|string|max:8',
-            'password' => 'required|password',
-            'document' => 'required|string|max:15',
+            'name'          => 'required|string|max:50',
+            'lastname'      => 'required|string|max:50',
+            'code'          => 'required|string|max:8',
+            'password'      => 'required|password',
+            'document'      => 'required|string|max:15',
             'document_type' => 'required|string|max:1',
-            'email' => 'required|string|email|max:50',
-            'emailu' => 'required|string|email|max:50',
-            'address' => 'required|string',
-            'phone' => 'required|string',
-            'birth' => 'required|date|'
+            'email'         => 'required|string|email|max:50',
+            'emailu'        => 'required|string|email|max:50',
+            'address'       => 'required|string',
+            'phone'         => 'required|string',
+            'birth'         => 'required|date|',
         ]);
     }
 
@@ -81,5 +80,25 @@ class AdministradorController extends Controller
     {
         $actividades = Activity::orderBy('id', 'ASC')->get();
         return view($this->ruta . '.lista_actividades', ['actividades' => $actividades]);
+    }
+
+    /*
+     *   Ing. Diego Sanchez
+     *   Metodo para obtener datos de usuario en especifico
+     *   Consulta por ajax
+     */
+    public function datos_usuario($id)
+    {
+        $usuario = User::findOrFail($id);
+        return response()->json($usuario);
+    }
+
+    public function destroy($id)
+    {
+        $usuario = User::findOrFail($id);
+        if ($usuario->delete()) {
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
     }
 }
